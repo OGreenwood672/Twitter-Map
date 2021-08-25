@@ -1,5 +1,5 @@
 {
-  "name": "Twitter Map",
+  "name": "twitter_map",
   "version": "1.0.0",
   "description": "A force directed graph to visualize a Twitter Map.",
   "main": "index.html",
