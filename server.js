@@ -11,7 +11,7 @@ if (process.argv.length === 2) {
 
 }
 
-var map_name = process.argv[process.argv.length-1];
+var map_name = process.argv[process.argv.length - 1];
 
 app.use(express.static('./public'))
 
