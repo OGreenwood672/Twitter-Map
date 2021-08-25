@@ -104,11 +104,17 @@ def get_args():
         help='Twitter Id of user'
     )
     #Collect only verified people who have 2+ million followers
-    parser.add_argument('--collect_only_verified',
-        metavar='collect_only_verified',
+    parser.add_argument('--collect-only-verified',
+        metavar='collect-only-verified',
         type=bool,
         help='Collect only verified people who have 2+ million followers',
         default=False
+    )
+    parser.add_argument('--remove_non_mutuals',
+        metavar='remove_non_mutuals',
+        type=bool,
+        help='Option to remove non mutual links',
+        default=True
     )
 
     return parser.parse_args()
@@ -129,7 +135,9 @@ def main():
     _map["nodes"], _ = get_user_followings(API, _map["nodes"], args.twitter_id) # Collect all followers as nodes
     _map["links"] = API.get_links(_map["nodes"]) # Collect links inbetween nodes
     print("\nFinished Links for: " + args.name)
-    _map["links"] = remove_non_mutuals(_map["links"]) #Removes everyone who isn't mutuals TODO option to not do this
+    if args.remove_non_mutuals:
+        print("Removing mutuals...")
+        _map["links"] = remove_non_mutuals(_map["links"]) #Removes everyone who isn't mutuals 
     save(args.name, _map)
     print(f"User id: {args.name} has been completed")
     
