@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import List
 from decouple import UndefinedValueError, config
 import json
 import os
@@ -120,6 +119,10 @@ def get_args():
     return parser.parse_args()
 
 def main():
+
+    """
+    A file to handle the Twitter API to fetch data about a person's following and create a map of the perople they follow
+    """
 
     args = get_args()
     
