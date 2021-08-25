@@ -20,13 +20,13 @@ def removeNonMutuals(links):
 
 
 def save(folderName, DATA):
-    newFolderPath = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), folderName)
+    newFolderPath = f"../Maps/{folderName}"#os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), folderName)
     try:
         os.remove(newFolderPath)
     except:
         pass
     os.mkdir(newFolderPath)
-    with open(f"../{folderName}/TwitterMutualMap.json", "w") as f:
+    with open(f"../Maps/{folderName}/TwitterMapRaw.json", "w") as f:
         json.dump(DATA, f, indent=4)
 
 
