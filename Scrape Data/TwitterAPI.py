@@ -87,10 +87,10 @@ class TwitterAPI:
         return links
 
 
-if __name__ == "__main__":
-    create_map = TwitterAPI()
-    next_token = True
-    while next_token != None:
-        DATA["nodes"], next_token = create_map.getVerifiedFollowings(DATA["nodes"], verified_id, max_followers=1000, pagination_token=next_token)
-    create_map.getLinks(DATA)
-    save()
+# if __name__ == "__main__":
+#     create_map = TwitterAPI()
+#     next_token = True
+#     while next_token != None:
+#         DATA["nodes"], next_token = create_map.getVerifiedFollowings(DATA["nodes"], verified_id, max_followers=1000, pagination_token=next_token)
+#     create_map.getLinks(DATA)
+#     save()

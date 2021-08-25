@@ -27,23 +27,22 @@ def shrink(links, scale):
     return new_links
 
 
-if __name__ == "__main__":
-
-    nameOfFolder = input("Who's file would you like to edit: ")
+def edit(nameOfFolder):
 
     with open(f"../{nameOfFolder}/TwitterMapRaw.json", "r") as f:
         data = json.load(f)
 
-    print("Shrinking nodes to fit screen...")
+    print(f"Editing data of {nameOfFolder}")
+    print("    Shrinking nodes to fit screen...")
     data["links"] = shrink(data["links"], 8)
     
-    choice = input("Would you like to set a minimum followers for nodes (y/N)")
+    choice = input("    Would you like to set a minimum followers for nodes (y/N)")
     if "y" in choice:
-        while not (minFollowers := input("What is your minimum followers required for node on map: ").isdigit()):
-            print("That is not a valid number")
+        while not (minFollowers := input("  What is your minimum followers required for node on map: ").isdigit()):
+            print("    That is not a valid number")
         data = setMinFollowers(data, minFollowers / 1000000)
     
-    if "y" in input("Would you like to remove the nodes who don't connect with anyone (y/N)"):
+    if "y" in input("   Would you like to remove the nodes who don't connect with anyone (y/N)"):
         data["nodes"] = removeSolos(data)
 
     with open(f"../{nameOfFolder}/TwitterMapEdited.json", "w") as f:

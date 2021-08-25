@@ -1,9 +1,11 @@
 from collections import defaultdict
-from decouple import config
+from decouple import Undefined, UndefinedValueError, config
 import json
 import os
 
 from TwitterAPI import TwitterAPI
+
+from edit_raw_data import edit
 
 def removeNonMutuals(links):
     dic = defaultdict(list)
@@ -39,19 +41,30 @@ def getUserFollowings(API, nodes, user_id, next_token=None):
         nodes, next_token = getUserFollowings(API, nodes, user_id, next_token)
     return nodes, next_token
 
-def getIds():
-    with open("./peopleToScrape.txt", "r") as f:
+def checkForFile(input_file):
+    if os.path.exists(input_file):
+        return True
+    print("Please create file 'peopleToScrape'\nFill file with '<name>=<user_id>'\nE.g. ElonMusk=44196397")
+
+def getIds(input_file):
+    with open(input_file, "r") as f:
         return list(map(int, [line.split("=")[1] for line in f.read().split("\n")]))
 
-def getNames():
-    with open("./peopleToScrape.txt", "r") as f:
+def getNames(input_file):
+    with open(input_file, "r") as f:
         return [line.split("=")[0] for line in f.read().split("\n")]
 
 def main():
-    API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), True)
+    try:
+        API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), True)
+    except UndefinedValueError:
+        print("Please create config file with TWITTER_BEARER_TOKEN")
 
-    user_ids = getIds()
-    user_names = getNames()
+    input_file = "./peopleToScrape.txt"
+    checkForFile(input_file)
+
+    user_ids = getIds(input_file)
+    user_names = getNames(input_file)
     for user_id, user_name in zip(user_ids, user_names):
         print(f"{user_name}:")
         _map = {"nodes": [], "links": []}
@@ -64,6 +77,9 @@ def main():
         print(f"User id: {user_name} has been completed")
     
     print("All your raw data has been succesfully farmed")
+
+    for user_name in user_names:
+        edit(user_name)
         
 
 
