@@ -54,22 +54,6 @@ def save(folder_name: str, DATA: Dict) -> None:
     with open(f"./public/Maps/{folder_name}/TwitterMapRaw.json", "w") as f:
         json.dump(DATA, f, indent=4)
 
-
-def refactor_followers(nodes: List[Dict], scale: float) -> List[Dict]:
-    """ Function: refactor_followers
-
-    @params
-    nodes: All the nodes of the map
-    scale: The number to multiply the current followers by so he nodes can fit in the map
-
-    The function changes all of the followers by scale so that they can fit on the map.
-
-    """
-
-    for node in nodes:
-        node["followers"] *= scale
-    return nodes
-
 def get_user_followings(API: TwitterAPI, nodes: List[Dict], user_id: int, next_token=None) -> Tuple[List[Dict], int]:
     """ Function : get_user_followings
 
@@ -145,7 +129,7 @@ def main():
     _map["nodes"], _ = get_user_followings(API, _map["nodes"], args.twitter_id) # Collect all followers as nodes
     _map["links"] = API.get_links(_map["nodes"]) # Collect links inbetween nodes
     print("\nFinished Links for: " + args.name)
-    _map["links"] = remove_non_mutuals(_map["links"])
+    _map["links"] = remove_non_mutuals(_map["links"]) #Removes everyone who isn't mutuals TODO option to not do this
     save(args.name, _map)
     print(f"User id: {args.name} has been completed")
     

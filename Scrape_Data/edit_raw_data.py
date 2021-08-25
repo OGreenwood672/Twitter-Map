@@ -32,9 +32,11 @@ def edit(nameOfFolder):
     with open(f"../public/Maps/{nameOfFolder}/TwitterMapRaw.json", "r") as f:
         data = json.load(f)
 
-    print(f"Editing data of {nameOfFolder}")
-    print("    Shrinking nodes to fit screen...")
-    data["links"] = shrink(data["links"], 8)
+    print(f"Editing data of {nameOfFolder}:")
+
+    if "y" in input("    Would you like to shrink number of links (recommended for graphs above 750 nodes) (y/N)"):
+        print("    Shrinking nodes to fit screen...")
+        data["links"] = shrink(data["links"], 8)
     
     if "y" in input("    Would you like to set a minimum followers for nodes (y/N)"):
         while not (minFollowers := input("  What is your minimum followers required for node on map: ").isdigit()):
