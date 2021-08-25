@@ -5,13 +5,15 @@ var fs = require("fs")
 
 const PORT = 6720;
 
-if (process.argv.length === 2) {
+if (process.argv.length < 3) {
 
     throw Error("No map argument provided")
 
 }
 
-var map_name = process.argv[process.argv.length - 1];
+var map_name = process.argv[2];
+
+var version = process.argv[3] === "3D" ? "&version=3D" : "&version=2D";
 
 app.use(express.static('./public'))
 
@@ -21,12 +23,14 @@ fs.readdir("./public/Maps", (err, files) => {
 
     if (files.indexOf(map_name) > -1) {
 
-        app.get('/',function(req,res){ 
+        app.get('/', (req,res) => { 
+
             res.sendFile(path.join(__dirname+'./public/index.html')); 
+            
         }); 
 
         app.listen(PORT);
-        console.log(`Showing ${map_name} at:\nhttp://localhost:${PORT}/?map=${map_name}`)
+        console.log(`Showing ${map_name} at:\nhttp://localhost:${PORT}/?map=${map_name}` + version)
 
     } else {
 
