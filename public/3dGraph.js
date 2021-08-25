@@ -9,7 +9,7 @@ const Graph = ForceGraph3D()
         const sprite = new SpriteText(node.name);
         sprite.material.depthWrite = false; // make sprite background transparent
         sprite.color = node.color;
-        sprite.textHeight = (4 + node.followers/100*25);
+        sprite.textHeight = (4 + (node.followers/1000000)/100*25);
         return sprite;
     })
 

@@ -20,7 +20,7 @@ function showMap(url) {
                 .linkColor(() => '#484848')
                 .nodeCanvasObject((node, ctx, globalScale) => {
                     const label = node.name;
-                    const fontSize = 12/globalScale * (0.75 + node.followers/100*1.5);
+                    const fontSize = 12/globalScale * (0.75 + (node.followers/1000000)/100*1.5);
                     ctx.font = `${fontSize}px Sans-Serif`;
                     const textWidth = ctx.measureText(label).width;
                     const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding

@@ -43,7 +43,7 @@ def save(folder_name: str, DATA: Dict) -> None:
     
     """
 
-    new_folder_path = f"../public/Maps/{folder_name}"#os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), folderName)
+    new_folder_path = f"./public/Maps/{folder_name}"#os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), folderName)
     
     try:
         os.remove(new_folder_path)
@@ -51,7 +51,7 @@ def save(folder_name: str, DATA: Dict) -> None:
         pass
 
     os.mkdir(new_folder_path)
-    with open(f"../public/Maps/{folder_name}/TwitterMapRaw.json", "w") as f:
+    with open(f"./public/Maps/{folder_name}/TwitterMapRaw.json", "w") as f:
         json.dump(DATA, f, indent=4)
 
 
@@ -107,17 +107,19 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    # Adding our first argument player name of type string
+    #name of user
     parser.add_argument('--name',
         metavar='name',
         type=str,
         help='Name of user'
     )
+    #Twitter Id of user
     parser.add_argument('--twitter_id',
         metavar='twitter_id',
         type=int,
         help='Twitter Id of user'
     )
+    #Collect only verified people who have 2+ million followers
     parser.add_argument('--collect_only_verified',
         metavar='collect_only_verified',
         type=bool,
@@ -131,6 +133,7 @@ def main():
 
     args = get_args()
     
+    #Create the twitter api instance with the auth token from a .env file
     try:
         API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), args.collect_only_verified)
     except UndefinedValueError:
@@ -138,11 +141,11 @@ def main():
         raise AssertionError
 
     print(f"{args.name}:")
-    _map = {"nodes": [], "links": []}
-    _map["nodes"], _ = get_user_followings(API, _map["nodes"], args.twitter_id)
-    _map["links"] = API.get_links(_map["nodes"])
+    _map = {"nodes": [], "links": []} # Initialize empty map
+    _map["nodes"], _ = get_user_followings(API, _map["nodes"], args.twitter_id) # Collect all followers as nodes
+    _map["links"] = API.get_links(_map["nodes"]) # Collect links inbetween nodes
     print("\nFinished Links for: " + args.name)
-    _map["nodes"] = refactor_followers(_map["nodes"], 0.000001)
+    #_map["nodes"] = refactor_followers(_map["nodes"], 0.000001) # Shrink followers number to allow it to be used
     _map["links"] = remove_non_mutuals(_map["links"])
     save(args.name, _map)
     print(f"User id: {args.name} has been completed")
@@ -153,5 +156,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
