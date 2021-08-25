@@ -7,10 +7,20 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OGreenwood672/Twitter-Map.git"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
   "author": "Oliver Greenwood",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/OGreenwood672/Twitter-Map/issues"
   },
-  "homepage": "https://github.com/OGreenwood672/Twitter-Map#readme"
+  "homepage": "https://github.com/OGreenwood672/Twitter-Map#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
+  "dependencies": {
+    "force-graph": "^1.42.2",
+    "three": "^0.131.3"
+  }
 }
