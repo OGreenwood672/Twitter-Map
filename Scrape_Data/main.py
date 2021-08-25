@@ -145,7 +145,6 @@ def main():
     _map["nodes"], _ = get_user_followings(API, _map["nodes"], args.twitter_id) # Collect all followers as nodes
     _map["links"] = API.get_links(_map["nodes"]) # Collect links inbetween nodes
     print("\nFinished Links for: " + args.name)
-    #_map["nodes"] = refactor_followers(_map["nodes"], 0.000001) # Shrink followers number to allow it to be used
     _map["links"] = remove_non_mutuals(_map["links"])
     save(args.name, _map)
     print(f"User id: {args.name} has been completed")
