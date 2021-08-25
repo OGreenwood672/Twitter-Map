@@ -1,7 +1,4 @@
 import requests
-import requests_oauthlib
-import os
-import json
 import time
 import sys
 
@@ -11,7 +8,7 @@ class TwitterAPI:
         self.filterPeople = filterPeople
     
     def isValidUser(self, user):
-        return user["verified"] and user["public_metrics"]["followers_count"] > 500000
+        return user["verified"] and user["public_metrics"]["followers_count"] > 2000000
     
     def create_usr_dict(self, usr):
         return {

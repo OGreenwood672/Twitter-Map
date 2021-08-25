@@ -1,7 +1,9 @@
 from collections import defaultdict
-from decouple import Undefined, UndefinedValueError, config
+from decouple import UndefinedValueError, config
 import json
 import os
+import argparse
+import re
 
 from TwitterAPI import TwitterAPI
 
@@ -41,45 +43,67 @@ def getUserFollowings(API, nodes, user_id, next_token=None):
         nodes, next_token = getUserFollowings(API, nodes, user_id, next_token)
     return nodes, next_token
 
-def checkForFile(input_file):
-    if os.path.exists(input_file):
-        return True
-    print("Please create file 'peopleToScrape'\nFill file with '<name>=<user_id>'\nE.g. ElonMusk=44196397")
+def get_args():
+    """ Function : get_args
+    parameters used in .add_argument
+    1. metavar - Provide a hint to the user about the data type.
+    - By default, all arguments are strings.
 
-def getIds(input_file):
-    with open(input_file, "r") as f:
-        return list(map(int, [line.split("=")[1] for line in f.read().split("\n")]))
+    2. type - The actual Python data type
+    - (note the lack of quotes around str)
 
-def getNames(input_file):
-    with open(input_file, "r") as f:
-        return [line.split("=")[0] for line in f.read().split("\n")]
+    3. help - A brief description of the parameter for the usage
+
+    """
+
+    parser = argparse.ArgumentParser(
+        description='Arguments for names and id of ',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    # Adding our first argument player name of type string
+    parser.add_argument('--name',
+        metavar='name',
+        type=str,
+        help='Name of user'
+    )
+    parser.add_argument('--twitter_id',
+        metavar='twitter_id',
+        type=int,
+        help='Twitter Id of user'
+    )
+    parser.add_argument('--collect_only_verified',
+        metavar='collect_only_verified',
+        type=bool,
+        help='Collect only verified people who have 2+ million followers',
+        default=False
+    )
+
+    return parser.parse_args()
 
 def main():
+
+    args = get_args()
+    
     try:
-        API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), True)
+        API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), args.collect_only_verified)
     except UndefinedValueError:
         print("Please create config file with TWITTER_BEARER_TOKEN")
+        raise AssertionError
 
-    input_file = "./peopleToScrape.txt"
-    checkForFile(input_file)
+    return
 
-    user_ids = getIds(input_file)
-    user_names = getNames(input_file)
-    for user_id, user_name in zip(user_ids, user_names):
-        print(f"{user_name}:")
-        _map = {"nodes": [], "links": []}
-        _map["nodes"], _ = getUserFollowings(API, _map["nodes"], user_id)
-        _map["links"] = API.getLinks(_map["nodes"])
-        print("\nFinished Links for: " + user_name)
-        _map["nodes"] = refactorFollowers(_map["nodes"], 0.000001)
-        _map["links"] = removeNonMutuals(_map["links"])
-        save(user_name, _map)
-        print(f"User id: {user_name} has been completed")
+    print(f"{args.name}:")
+    _map = {"nodes": [], "links": []}
+    _map["nodes"], _ = getUserFollowings(API, _map["nodes"], args.twitter_id)
+    _map["links"] = API.getLinks(_map["nodes"])
+    print("\nFinished Links for: " + args.name)
+    _map["nodes"] = refactorFollowers(_map["nodes"], 0.000001)
+    _map["links"] = removeNonMutuals(_map["links"])
+    save(args.name, _map)
+    print(f"User id: {args.name} has been completed")
     
-    print("All your raw data has been succesfully farmed")
-
-    for user_name in user_names:
-        edit(user_name)
+    edit(args.name)
         
 
 
