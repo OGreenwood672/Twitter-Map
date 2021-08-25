@@ -1,7 +1,7 @@
 {
-  "name": "force_directed_graph",
+  "name": "Twitter Map",
   "version": "1.0.0",
-  "description": "A force directed graph to visualize data.",
+  "description": "A force directed graph to visualize a Twitter Map.",
   "main": "index.html",
   "repository": {
     "type": "git",
