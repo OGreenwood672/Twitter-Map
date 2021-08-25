@@ -5,12 +5,12 @@
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/OGreenwood672/force-directed-graph.git"
+    "url": "git+ssh://git@github.com/OGreenwood672/Twitter-Map.git"
   },
   "author": "Oliver Greenwood",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OGreenwood672/force-directed-graph/issues"
+    "url": "https://github.com/OGreenwood672/Twitter-Map/issues"
   },
-  "homepage": "https://github.com/OGreenwood672/force-directed-graph#readme"
+  "homepage": "https://github.com/OGreenwood672/Twitter-Map#readme"
 }
