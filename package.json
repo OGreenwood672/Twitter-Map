@@ -19,8 +19,5 @@
   "devDependencies": {
     "express": "^4.17.1"
   },
-  "dependencies": {
-    "force-graph": "^1.42.2",
-    "three": "^0.131.3"
-  }
+  "dependencies": {}
 }

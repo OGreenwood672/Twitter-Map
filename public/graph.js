@@ -1,6 +1,3 @@
-// import 'force-graph';
-// import 'three';
-
 url = "./Maps/ElonMusk/TwitterMap.json"
 fetch(url)
     .then(function (response) {
