@@ -75,7 +75,7 @@ https://ogreenwood672.github.io/algorithms/#/twitter/elonMusk/2d
 
 ![image](https://user-images.githubusercontent.com/22611951/130952310-7dd1d84f-fc0a-4104-9cab-9acc9801f0b7.png)
 
-# Issues
+# Contributions
 
 If you would like to suggest any improvements, fix any issues or clean the code, you can:
 
