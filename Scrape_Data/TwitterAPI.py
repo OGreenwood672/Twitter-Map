@@ -16,7 +16,7 @@ class TwitterAPI:
         filter_people: Automatically removes any people who don't match requirements
         """
         self.bearer_token = bearer_token
-        self.filterPeople = filter_people
+        self.filter_people = filter_people
     
     def is_valid_user(self, user: Dict):
         """ Function: is_valid_user
@@ -25,11 +25,11 @@ class TwitterAPI:
 
         Checks if user meets requirements
         REQUIREMENTS:
-        user.followers > 2,000,000
+        user.followers > 500,000
         user.verified == True
         """
 
-        return user["verified"] and user["public_metrics"]["followers_count"] > 2000000
+        return user["verified"] and user["public_metrics"]["followers_count"] > 500000
     
     def create_usr_dict(self, usr: Dict):
         """ Fucntion: create_usr_dict

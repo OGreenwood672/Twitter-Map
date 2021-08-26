@@ -79,5 +79,5 @@ def edit(nameOfFolder: str):
     if "y" in input("   Would you like to remove the nodes who don't connect with anyone (y/N)"):
         data["nodes"] = remove_solos(data)
 
-    with open(f"./public/{nameOfFolder}/TwitterMap.json", "w") as f:
+    with open(f"./public/Maps/{nameOfFolder}/TwitterMap.json", "w") as f:
         json.dump(data, f, indent=4)

@@ -43,13 +43,11 @@ def save(folder_name: str, DATA: Dict) -> None:
     """
 
     new_folder_path = f"./public/Maps/{folder_name}"#os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), folderName)
-    
-    try:
-        os.remove(new_folder_path)
-    except:
-        pass
 
-    os.mkdir(new_folder_path)
+    try:
+        os.mkdir(new_folder_path)
+    except FileExistsError:
+        pass
     with open(f"./public/Maps/{folder_name}/TwitterMapRaw.json", "w") as f:
         json.dump(DATA, f, indent=4)
 
@@ -109,6 +107,7 @@ def get_args():
         help='Collect only verified people who have 2+ million followers',
         default=False
     )
+    #Option to remove non mutual links
     parser.add_argument('--remove-non-mutuals',
         metavar='remove_non_mutuals',
         type=bool,
