@@ -66,7 +66,7 @@ def get_user_followings(API: TwitterAPI, nodes: List[Dict], user_id: int, next_t
     
     """
 
-    nodes, next_token = API.getFollowings(nodes, user_id, pagination_token=next_token)
+    nodes, next_token = API.get_followings(nodes, user_id, pagination_token=next_token)
     if next_token != None:
         nodes, next_token = get_user_followings(API, nodes, user_id, next_token)
     return nodes, next_token
@@ -97,19 +97,19 @@ def get_args():
         help='Name of user'
     )
     #Twitter Id of user
-    parser.add_argument('--twitter_id',
+    parser.add_argument('--twitter-id',
         metavar='twitter_id',
         type=int,
         help='Twitter Id of user'
     )
     #Collect only verified people who have 2+ million followers
     parser.add_argument('--collect-only-verified',
-        metavar='collect-only-verified',
+        metavar='collect_only_verified',
         type=bool,
         help='Collect only verified people who have 2+ million followers',
         default=False
     )
-    parser.add_argument('--remove_non_mutuals',
+    parser.add_argument('--remove-non-mutuals',
         metavar='remove_non_mutuals',
         type=bool,
         help='Option to remove non mutual links',
@@ -125,7 +125,9 @@ def main():
     """
 
     args = get_args()
-    
+    if (args.twitter_id == None or args.name == None):
+        raise Exception("Twitter id or twitter name not given")
+
     #Create the twitter api instance with the auth token from a .env file
     try:
         API = TwitterAPI(config("TWITTER_BEARER_TOKEN"), args.collect_only_verified)

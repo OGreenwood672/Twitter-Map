@@ -8,8 +8,7 @@
     "url": "git+ssh://git@github.com/OGreenwood672/Twitter-Map.git"
   },
   "scripts": {
-    "show": "node server.js",
-    "collect": "python ./Scrape_Data/main.py"
+    "show": "node server.js"
   },
   "author": "Oliver Greenwood",
   "license": "ISC",
@@ -20,6 +19,5 @@
   "devDependencies": {
     "express": "^4.17.1",
     "fs": "0.0.1-security"
-  },
-  "dependencies": {}
+  }
 }
