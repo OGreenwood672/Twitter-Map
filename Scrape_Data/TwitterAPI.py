@@ -75,6 +75,7 @@ class TwitterAPI:
         r: No idea????? TODO
 
         Copy and pasted from Twitter Api docs
+        Sets up authorisation for the Twitter Api
         """
 
         r.headers["Authorization"] = f"Bearer {self.bearer_token}"
