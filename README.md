@@ -14,7 +14,7 @@ This software allows the user to create maps of Twitter accounts.
 
 <h3>To create new map:</h3>
 
-IMPORTANT:
+<h4>IMPORTANT:</h4>
 
 To create a map you will need a unique Twitter API token
 
@@ -24,11 +24,11 @@ Once you have a Twitter API token, place a '.env' file in the main folder and ad
 
 `TWITTER_BEARER_TOKEN=<TOKEN>`
 
-TWITTER-ID:
+<h4>TWITTER-ID:</h4>
 
 To find the user's Twitter id, enter their handle at this website: https://tweeterid.com/
 
-TIMING:
+<h4>TIMING:</h4>
 
 The Twitter API, sadly limits the number of requests. This means that loading an account can take a long time. 
 The API allows 15 requests every 15 minutes. For a good idea of timeing:
