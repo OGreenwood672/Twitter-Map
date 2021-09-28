@@ -12,33 +12,6 @@ This software allows the user to create maps of Twitter accounts.
 
 `pip install python-decouple requests`
 
-<h3>To create new map:</h3>
-
-<h4>IMPORTANT:</h4>
-
-To create a map you will need a unique Twitter API token
-
-you can get a Twitter API token here: https://twitter.com/login?redirect_after_login=https%3A%2F%2Fdeveloper.twitter.com%2Fapp%2Fnew
-
-Once you have a Twitter API token, place a '.env' file in the main folder and add:
-
-`TWITTER_BEARER_TOKEN=<TOKEN>`
-
-<h4>TWITTER-ID:</h4>
-
-To find the user's Twitter id, enter their handle at this website: https://tweeterid.com/
-
-<h4>TIMING:</h4>
-
-The Twitter API, sadly limits the number of requests. This means that loading an account can take a long time. 
-The API allows 15 requests every 15 minutes. For a good idea of timeing:
-
-number_of_people_the_user_follows + 1 < minutes_left < number_of_people_the_user_follows * 3 + 1
-
-The error margin all depends on how many people the people the user follows follows. (No, it's not a typo)
-
-`python3 ./Scrape_Data/main.py --name <name_of_map> --twitter-id <twitter_id> [optional --collect-only-verified <bool> --remove-non-mutual <bool>]`
-
 <h3>To display map:</h3>
 
 `npm run show <map_name> [optional <mode: ("3D" | "2D")>]`
